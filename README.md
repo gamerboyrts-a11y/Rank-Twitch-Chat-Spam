@@ -1,7 +1,17 @@
 # Rank-Twitch-Chat-Spam `Emote support for 7TV only`. 
 
+`Pefect for when you don't want polls or polls are not fast enough.` 
+
 A real-time, browser-based dashboard that tracks and ranks the most spammed words and 7TV emotes in any Twitch chat.
-Pefect for when you don't want polls or polls are not fast enough. 
+
+## Usage
+
+1.  **Open the App:** [Click here to view live demo](https://gamerboyrts-a11y.github.io/Twitch-Chat-spam/)
+2.  **Enter Channel:** Type a channel name (e.g., `xqc`, `forsen`, `Gorgc`) and hit **Connect**.
+3.  **Watch:** The board will light up with the top spammed emotes in real-time.
+4.  **Customize:**
+    -   Toggle **"Show Emotes Only"** to see text spam vs. emote images.
+    -   Adjust the **Reset Timer** (default 30s) to change how often the board clears.
 
 ![alt text](https://github.com/gamerboyrts-a11y/Twitch-Chat-spam/blob/0e871365d3e201309adb4d01fefe2fca3be2aeb1/Web.png "Website")
 
@@ -17,15 +27,6 @@ Pefect for when you don't want polls or polls are not fast enough.
     -   **Customizable:** Set to any duration (e.g., 10s, 60s).
 -   **No Login Required:** Works anonymously; no Twitch account or API keys needed.
 
-
-## Usage
-
-1.  **Open the App:** [Click here to view live demo](https://gamerboyrts-a11y.github.io/Twitch-Chat-spam/)
-2.  **Enter Channel:** Type a channel name (e.g., `xqc`, `forsen`, `Gorgc`) and hit **Connect**.
-3.  **Watch:** The board will light up with the top spammed emotes in real-time.
-4.  **Customize:**
-    -   Toggle **"Show Emotes Only"** to see text spam vs. emote images.
-    -   Adjust the **Reset Timer** (default 30s) to change how often the board clears.
 
 ## Installation / Hosting
 
