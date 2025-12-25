@@ -45,11 +45,12 @@ Twitch Spam Tracker Screenshot**![alt text](https://github.com/gamerboyrts-a11y/
     Open the App: Go to the Live Demo.
     Connect: Enter a channel name (e.g., xqc, kaicenat) and hit Connect.
     Pop-out: Click the "Pop-out" button to open a clean window.
-    OBS Mode: In the new window, click "Toggle OBS Mode".
-    This makes the background transparent and hides all buttons.
-    Add to OBS: Use Window Capture in OBS to select the popup window.
-    Tip: Use "Allow Transparency" in OBS capture properties if available.
-    To Exit OBS Mode: Double-click anywhere on the transparent page.
+    **OBS Mode:** In the new window, click **"Toggle OBS Mode"**.
+    -   *This turns the background bright green (Green Screen) and hides all buttons.*
+    **Add to OBS:** 
+    -   Add a **Window Capture** source in OBS and select the popup window.
+    -   Right-click the source > **Filters** > **Add Effect Filter** > **Chroma Key**.
+    -   (Default settings usually work, or pick "Green" as the Key Color Type)..
 
 ⚙️ Customization
 
