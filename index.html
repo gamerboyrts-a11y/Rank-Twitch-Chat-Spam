@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Twitch Spam Tracker (Custom Cards)</title>
+    <title>Twitch Spam Tracker</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         /* Base Style */
         body { background: linear-gradient(to bottom, #18181b, #0e0e10); color: #efeff1; font-family: 'Inter', Helvetica, Arial, sans-serif; text-align: center; padding: 20px; overflow-x: hidden; min-height: 100vh; margin: 0; transition: background 0.3s; }
         
-        /* OBS Mode */
+        /* OBS Mode - GREEN SCREEN */
         body.obs-mode { background: #00b140 !important; overflow: hidden; }
         body.obs-mode .controls, 
         body.obs-mode h1, 
@@ -63,7 +63,7 @@
             background: #1f1f23;
             display: flex; flex-direction: column; align-items: center; justify-content: space-between;
             position: relative;
-            border: 2px solid #3a3a3d; /* Default border for #4+ */
+            border: 2px solid #3a3a3d; 
             transition: transform 0.2s, box-shadow 0.2s;
         }
         .top-card:hover { transform: translateY(-5px); }
@@ -96,7 +96,7 @@
         .content-area span { font-size: 32px; font-weight: 800; word-break: break-word; line-height: 1.1; }
         
         .percent-bar-bg { width: 100%; height: 8px; background: #3a3a3d; border-radius: 4px; overflow: hidden; margin-top: 15px; }
-        .percent-bar-fill { height: 100%; background: #9146ff; transition: width 0.5s ease; } /* Default fill for #4+ */
+        .percent-bar-fill { height: 100%; background: #9146ff; transition: width 0.5s ease; } 
         .percent-text { margin-top: 8px; font-size: 20px; font-weight: bold; font-family: monospace; }
         
         /* Chart */
@@ -110,12 +110,12 @@
         body.obs-mode:hover #exit-hint { display: block; }
     </style>
 </head>
-<body ondblclick="toggleOBSMode()">
+<body>
     
     <h1>Live Spam Tracker</h1>
     <div class="signature" style="font-size: 13px; color: #adadb8; margin-top: -15px; margin-bottom: 25px; font-weight: 600; letter-spacing: 0.5px;">by GodOfGoddess</div>
     
-       <div class="help-section">
+    <div class="help-section">
         <details>
             <summary>Instructions: How to use with OBS</summary>
             <div class="help-content">
@@ -136,12 +136,12 @@
     <div class="controls">
         <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
             <input id="channel" placeholder="Channel (e.g. xqc)" onkeydown="if(event.key==='Enter') connect()" oninput="saveSettings()" />
-            <button onclick="connect()">Connect</button>
+            <button onclick="connect()" title="Start tracking chat">Connect</button>
         </div>
         
         <div class="settings-container">
             <div class="settings-row">
-                <div class="toggle-group">
+                <div class="toggle-group" title="Hide text and show only Twitch/7TV/BTTV emotes and Emojis">
                     <label class="switch">
                         <input type="checkbox" id="emoteToggle" checked onchange="saveSettings(); updateDisplay()">
                         <span class="slider"></span>
@@ -149,30 +149,30 @@
                     <span class="label-text">Show Emotes Only</span>
                 </div>
                 
-                <div class="toggle-group">
-                    <span class="label-text">Window (s):</span>
+                <div class="toggle-group" title="How long (in seconds) an item counts towards the score before fading">
+                    <span class="label-text">Decay Time (s):</span>
                     <input type="number" id="timerInput" class="small-input" placeholder="Off" value="30" min="1" onchange="saveSettings(); updateTimer()">
-                    <button onclick="manualReset()" style="padding: 4px 10px; font-size: 12px; margin-left: 5px;">Clear</button>
+                    <button onclick="manualReset()" style="padding: 4px 10px; font-size: 12px; margin-left: 5px;" title="Reset the leaderboard immediately">Clear</button>
                 </div>
             </div>
 
             <div class="settings-row">
-                <div class="toggle-group">
+                <div class="toggle-group" title="Number of rank cards to display">
                     <span class="label-text">Max Cards:</span>
                     <input type="number" id="cardCountInput" class="small-input" value="3" min="1" max="20" onchange="updateCardCount()">
                 </div>
 
-                <div class="toggle-group" title="Count multiple same emotes in one message as just 1">
+                <div class="toggle-group" title="Count multiple same emotes in one message as just 1 (Prevents single-user spam)">
                     <label class="switch">
-                        <input type="checkbox" id="uniqueToggle" onchange="saveSettings()">
+                        <input type="checkbox" id="uniqueToggle" checked onchange="saveSettings()">
                         <span class="slider"></span>
                     </label>
                     <span class="label-text">Unique per Msg</span>
                 </div>
 
-                <div class="toggle-group">
+                <div class="toggle-group" title="Ignore repeated spam from the same user for X seconds">
                     <label class="switch">
-                        <input type="checkbox" id="cooldownToggle" onchange="saveSettings()">
+                        <input type="checkbox" id="cooldownToggle" checked onchange="saveSettings()">
                         <span class="slider"></span>
                     </label>
                     <span class="label-text">User CD (s):</span>
@@ -180,11 +180,10 @@
                 </div>
             </div>
 
-            <!-- OBS Mode Toggle & Popup (SWAPPED POSITIONS) -->
             <div class="settings-row">
-                <button onclick="openPopup()" style="background-color: #3a3a3d; font-size: 14px; padding: 8px 16px;">Pop-out</button>
-                <button onclick="toggleOBSMode()" style="background-color: #3a3a3d; font-size: 14px; padding: 8px 16px;">Toggle OBS Mode</button>
-                <button onclick="toggleBlacklist()" style="background-color: #3a3a3d; font-size: 14px; padding: 8px 16px;">Edit Blacklist</button>
+                <button onclick="openPopup()" title="Opens the tracker in a new, clean window without browser bars" style="background-color: #3a3a3d; font-size: 14px; padding: 8px 16px;">Pop-out</button>
+                <button onclick="toggleOBSMode()" title="Turns background Green (for Chroma Key) and hides controls" style="background-color: #3a3a3d; font-size: 14px; padding: 8px 16px;">Toggle OBS Mode</button>
+                <button onclick="toggleBlacklist()" title="Add specific words to ignore (like bot commands)" style="background-color: #3a3a3d; font-size: 14px; padding: 8px 16px;">Edit Blacklist</button>
             </div>
 
             <div id="blacklist-container" class="blacklist-area">
@@ -219,7 +218,7 @@
         let updateInterval = null;
         
         // BLACKLIST
-        const DEFAULT_BLACKLIST = new Set([" ", "the", "be", "to", "of", "and", "a", "in", "that", "have", "i", "it", "for", "not", "on", "with", "he", "as", "you", "do", "at", "this", "but", "his", "by", "from", "they", "we", "say", "her", "she", "or", "an", "will", "my", "one", "all", "would", "there", "their", "what", "so", "up", "out", "if", "about", "who", "get", "which", "go", "me", "is", "are", "was", "were", "has", "had", "can", "could", "should", "would"]);
+        const DEFAULT_BLACKLIST = new Set(["the", "be", "to", "of", "and", "a", "in", "that", "have", "i", "it", "for", "not", "on", "with", "he", "as", "you", "do", "at", "this", "but", "his", "by", "from", "they", "we", "say", "her", "she", "or", "an", "will", "my", "one", "all", "would", "there", "their", "what", "so", "up", "out", "if", "about", "who", "get", "which", "go", "me", "is", "are", "was", "were", "has", "had", "can", "could", "should", "would"]);
         let customBlacklist = new Set();
 
         // CHART
@@ -261,7 +260,6 @@
             }
         }
 
-        // Render Dynamic Cards
         function renderCards(count) {
             const container = document.getElementById('cards-container');
             container.innerHTML = '';
@@ -290,7 +288,7 @@
 
         window.onload = function() {
             loadSettings();
-            updateCardCount(); // Initial render
+            updateCardCount(); 
         };
 
         function initChart() {
@@ -338,6 +336,13 @@
         function toggleOBSMode() {
             document.body.classList.toggle('obs-mode');
         }
+
+        // --- SAFE TOGGLE LOGIC ---
+        document.body.addEventListener('dblclick', function() {
+            if (document.body.classList.contains('obs-mode')) {
+                toggleOBSMode();
+            }
+        });
 
         function openPopup() {
             const width = 600;
@@ -471,7 +476,7 @@
 
             for (let i = 0; i < maxCards; i++) {
                 const cardEl = document.getElementById(`card${i+1}`);
-                if (!cardEl) continue; // Safety check
+                if (!cardEl) continue; 
 
                 const contentEl = document.getElementById(`content${i+1}`);
                 const percTextEl = document.getElementById(`perc${i+1}`);
@@ -586,14 +591,20 @@
                             }
                             let tokens = msgContent.trim().split(/\s+/);
                             if (document.getElementById('uniqueToggle').checked) tokens = [...new Set(tokens)];
+                            
                             tokens.forEach(t => {
                                 if (isEmoji(t)) {
                                     if (checkUserCooldown(username, t)) addSpam(t);
                                     return;
                                 }
-                                let clean = t.toLowerCase().replace(/[.,!?"':;]/g, "");
+                                let clean = t.toLowerCase();
+                                clean = clean.replace(/[.,!?"':;]/g, "");
+                                clean = clean.replace(/[\u034f\u2800\u200b-\u200f\u2028-\u202f\u2060-\u206f\ufeff]/g, ""); // FIXED INVISIBLE
+                                clean = clean.trim();
+                                
+                                if (clean.length === 0) return;
                                 if (isBlacklisted(clean)) return;
-                                if (clean.length > 0 && checkUserCooldown(username, clean)) addSpam(clean);
+                                if (checkUserCooldown(username, clean)) addSpam(clean);
                             });
                         }
                     }
@@ -606,6 +617,3 @@
     </script>
 </body>
 </html>
-
-
-
