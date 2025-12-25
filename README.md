@@ -1,6 +1,6 @@
 ### Rank-Twitch-Chat-Spam
 
-  ##The Ultimate Real-Time Chat Meter. Check chats mood with a glance. 
+  ##The Ultimate Real-Time Chat Meter.  `Check chats mood with a glance.`  
   
   Perfect for when you don't want polls or polls are not fast enough.
 
